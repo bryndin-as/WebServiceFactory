@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  webservicefactory:
+    image: ${DOCKER_REGISTRY-}webservicefactory
+    build:
+      context: .
+      dockerfile: WebServiceFactory/Dockerfile
+    ports:
+      - 8095:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+
+  postgres:
+    image: postgres
+    container_name: pg_container_factory
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: db-factory
+      POSTGRES_PASSWORD: 111QQQwww
+      POSTGRES_USER: root
+    ports:
+      - 5432:5432
+    volumes:
+      - .:/docker-entrypoint-initdb.d
+
+
