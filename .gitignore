@@ -104,6 +104,7 @@ _Chutzpah*
 # Visual C++ cache files
 ipch/
 *.aps
+*.idea
 *.ncb
 *.opendb
 *.opensdf
@@ -159,6 +160,9 @@ nCrunchTemp_*
 # MightyMoose
 *.mm.*
 AutoTest.Net/
+.idea/
+.idea
+idea
 
 # Web workbench (sass)
 .sass-cache/

@@ -23,7 +23,7 @@ namespace WebServiceFactory
 
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
-                string a = "Host=postgres;Port=5433;Database=;Username=root;Password=111QQQwww";
+                string a = "Host=postgresw;Port=5432;Database=;Username=root;Password=111QQQwww";
                 Console.WriteLine(a);
                 options.UseNpgsql(a);
             });
