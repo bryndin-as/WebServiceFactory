@@ -8,12 +8,10 @@ namespace WebServiceFactory.Extensions
     {
         public static void AddContext(this IServiceCollection services, IConfiguration configuration)
         {
-
-            var conSt = configuration.GetConnectionString("DefaultConnection");
+            var conSt = configuration.GetConnectionString("DockerConnection");
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(conSt));
-
         }
     }
 
@@ -28,7 +26,7 @@ namespace WebServiceFactory.Extensions
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetConnectionString("DockerConnection");
 
             optionsBuilder.UseNpgsql(connectionString);
 
