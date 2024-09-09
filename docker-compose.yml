@@ -18,7 +18,7 @@ services:
       - POSTGRES_PASSWORD=111QQQwww
       - POSTGRES_USER=root
     ports:
-      - 5435:5432
+      - 5432:5432
 #    volumes:
 #      - .:/docker-entrypoint-initdb.d
       
@@ -28,3 +28,4 @@ services:
     container_name: adminer
     ports:
       - 8080:8080
+      
