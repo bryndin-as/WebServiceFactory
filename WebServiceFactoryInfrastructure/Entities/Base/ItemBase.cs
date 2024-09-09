@@ -16,5 +16,7 @@ namespace WebServiceFactoryInfrastructure.Entities.Base
 
         public string Description { get; set; }
 
+        public string Test { get; set; }
+
     }
 }

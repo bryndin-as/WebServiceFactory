@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using WebServiceFactory.Extensions;
 using WebServiceFactoryInfrastructure.Database;
 
 namespace WebServiceFactory
@@ -19,14 +20,14 @@ namespace WebServiceFactory
 
             //builder.Services.AddDbContext<AppDbContext>();
 
-            //builder.Services.AddContext(builder.Configuration);
+            builder.Services.AddContext(builder.Configuration);
 
-            builder.Services.AddDbContext<AppDbContext>(options =>
-            {
-                string a = "Host=postgresw;Port=5432;Database=;Username=root;Password=111QQQwww";
-                Console.WriteLine(a);
-                options.UseNpgsql(a);
-            });
+            //builder.Services.AddDbContext<AppDbContext>(options =>
+            //{
+            //    string a = "Host=postgresw;Port=5432;Database=;Username=root;Password=111QQQwww";
+            //    Console.WriteLine(a);
+            //    options.UseNpgsql(a);
+            //});
 
             var app = builder.Build();
 
@@ -36,8 +37,6 @@ namespace WebServiceFactory
                 var services = scope.ServiceProvider;
 
                 var context = services.GetRequiredService<AppDbContext>();
-
-                Console.WriteLine(context.Database.GetPendingMigrations().Count());
 
                 if (context.Database.GetPendingMigrations().Any())
                     context.Database.Migrate();
