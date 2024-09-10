@@ -1,7 +1,10 @@
 
 using Microsoft.EntityFrameworkCore;
 using WebServiceFactory.Extensions;
+using WebServiceFactoryContracts.Repositories;
 using WebServiceFactoryInfrastructure.Database;
+using WebServiceFactoryInfrastructure.Entities;
+using WebServiceFactoryInfrastructure.Repositories;
 
 namespace WebServiceFactory
 {
@@ -29,15 +32,17 @@ namespace WebServiceFactory
             //    options.UseNpgsql(a);
             //});
 
+
+            builder.Services.AddScoped<IDataTestRepository, DataTestRepository>();
+
+
             var app = builder.Build();
 
             //Update db
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-
                 var context = services.GetRequiredService<AppDbContext>();
-
                 if (context.Database.GetPendingMigrations().Any())
                     context.Database.Migrate();
             }
