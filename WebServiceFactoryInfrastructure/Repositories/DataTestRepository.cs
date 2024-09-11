@@ -2,86 +2,47 @@
 using WebServiceFactoryContracts.Repositories;
 using WebServiceFactoryInfrastructure.Database;
 using WebServiceFactoryInfrastructure.Entities;
+using WebServiceFactoryInfrastructure.Services;
 
 namespace WebServiceFactoryInfrastructure.Repositories
 {
     public class DataTestRepository : IDataTestRepository
     {
         private readonly AppDbContext _context;
-        private readonly Faker _faker = new();
-
+        private readonly FillerBd _fillerBd = new();
+         
         public DataTestRepository(AppDbContext context)
         {
             _context = context;
+
         }
 
         public async Task SetDataTest(int count)
         {
-            _context.Regions.AddRange(Enumerable.Range(0, count).Select(r => new Region
-            {
-                Title = _faker.Address.City().ToString(),
-                Description = _faker.Address.FullAddress().ToString(), 
-                ShortTitle = _faker.Address.CountryCode().ToString(),
-
-            }).ToArray());
-
+            var regions = _fillerBd.AddRegion(count);
+            _context.Regions.AddRange(regions);
             await _context.SaveChangesAsync();
 
-            _context.Facilities.AddRange(Enumerable.Range(0, count).Select(f => new Facility
-            {
-                Title = _faker.Commerce.ProductName().ToString(),
-                Description = _faker.Commerce.ProductDescription().ToString(),  
-                ShortTitle = _faker.Commerce.Product().ToString(),
-                RegionId = new Random().Next(1,count),
-            }));
-
+            var facilities = _fillerBd.AddFacility(count, _context.Regions.Count());
+            _context.Facilities.AddRange(facilities);
             await _context.SaveChangesAsync();
 
-            _context.TechUnits.AddRange(Enumerable.Range(0, count).Select(t => new TechUnit
-            {
-                Title = _faker.Commerce.ProductName().ToString(),
-                Description = _faker.Commerce.ProductDescription().ToString(),
-                ShortTitle = _faker.Commerce.Product().ToString(),
-                FacilityId = new Random().Next(1,count),    
-
-            }));
-
+            var techUnits = _fillerBd.AddTechUnit(count, _context.Facilities.Count());
+            _context.TechUnits.AddRange(techUnits);
             await _context.SaveChangesAsync();
 
-            _context.EquipmentGroups.AddRange(Enumerable.Range(0, count).Select(t => new EquipmentGroup
-            {
-                Title = _faker.Commerce.ProductName().ToString(),
-                Description = _faker.Commerce.ProductDescription().ToString(),
-                ShortTitle = _faker.Commerce.Product().ToString(),
-                TechUnitId = new Random().Next(1, count),
-
-            }));
-
+            var equipmentGroups = _fillerBd.AddEquipmentGroup(count, _context.TechUnits.Count() );
+            _context.EquipmentGroups.AddRange(equipmentGroups);
             await _context.SaveChangesAsync();
 
-            _context.HardwareTypes.AddRange(Enumerable.Range(0, count).Select(t => new HardwareType
-            {
-                Title = _faker.Commerce.ProductName().ToString(),
-                Description = _faker.Commerce.ProductDescription().ToString(),
-                ShortTitle = _faker.Commerce.Product().ToString(),
-
-            }));
-
+            var hardwareTypes = _fillerBd.AddHardwareType(count);
+            _context.HardwareTypes.AddRange(hardwareTypes);
             await _context.SaveChangesAsync();
 
-            _context.Hardwares.AddRange(Enumerable.Range(0, count).Select(t => new Hardware
-            {
-                Title = _faker.Commerce.ProductName().ToString(),
-                Description = _faker.Commerce.ProductDescription().ToString(),
-                ShortTitle = _faker.Commerce.Product().ToString(),
-                ShortDescription = _faker.Commerce.ProductDescription().ToString(),
-                Read = _faker.Commerce.ProductDescription().ToString(),
-                EquipmentGroupId = new Random().Next(1, count),
-                HardwareTypeId = new Random().Next(1, count),
-
-            }));
-
+            var hardwares = _fillerBd.AddHardware(count, _context.EquipmentGroups.Count(), _context.HardwareTypes.Count());
+            _context.Hardwares.AddRange(hardwares);
             await _context.SaveChangesAsync();
+
         }
     }
 }

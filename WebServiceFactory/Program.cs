@@ -5,6 +5,7 @@ using WebServiceFactoryContracts.Repositories;
 using WebServiceFactoryInfrastructure.Database;
 using WebServiceFactoryInfrastructure.Entities;
 using WebServiceFactoryInfrastructure.Repositories;
+using WebServiceFactoryInfrastructure.Services;
 
 namespace WebServiceFactory
 {
@@ -34,6 +35,7 @@ namespace WebServiceFactory
 
 
             builder.Services.AddScoped<IDataTestRepository, DataTestRepository>();
+            builder.Services.AddScoped<FillerBd>();
 
 
             var app = builder.Build();
