@@ -10,7 +10,6 @@ namespace WebServiceFactory.Controllers
     public class DataTestController : ControllerBase
     {
         private readonly IDataTestRepository _dataTestRepository;
-        //private readonly DataTestRepository _dataTestRepositoryуу;
 
         public DataTestController(IDataTestRepository dataTestRepositoryуу)
         {
@@ -20,16 +19,8 @@ namespace WebServiceFactory.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDataSet(int count)
         {
-           await _dataTestRepository.SetDataTest(count);
-
+            await _dataTestRepository.SetDataTest(count);
             return Ok();
         }
-
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetSosiAction()
-        //{
-        //    return Ok(await _dataTestRepository.GetSosi());
-        //}
     }
 }
