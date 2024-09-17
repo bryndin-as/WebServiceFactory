@@ -1,48 +1,37 @@
-﻿using Bogus;
+﻿using Microsoft.Extensions.Logging;
 using WebServiceFactoryContracts.Repositories;
-using WebServiceFactoryInfrastructure.Database;
-using WebServiceFactoryInfrastructure.Entities;
 using WebServiceFactoryInfrastructure.Services;
 
 namespace WebServiceFactoryInfrastructure.Repositories
 {
     public class DataTestRepository : IDataTestRepository
     {
-        private readonly AppDbContext _context;
-        private readonly FillerBd _fillerBd = new();
-         
-        public DataTestRepository(AppDbContext context)
-        {
-            _context = context;
+        private readonly ILogger<DataTestRepository> _logger;
+        private readonly FillerBd _fillerBd;
 
+        public DataTestRepository(ILogger<DataTestRepository> logger, FillerBd fillerBd)
+        {
+            _logger = logger;
+            _fillerBd = fillerBd;
         }
 
         public async Task SetDataTest(int count)
         {
-            var regions = _fillerBd.AddRegion(count);
-            _context.Regions.AddRange(regions);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _fillerBd.AddRegion(count);
+                await _fillerBd.AddFacility(count);
+                await _fillerBd.AddTechUnit(count);
+                await _fillerBd.AddEquipmentGroup(count);
+                await _fillerBd.AddHardwareType(count);
+                await _fillerBd.AddHardware(count);
 
-            var facilities = _fillerBd.AddFacility(count, _context.Regions.Count());
-            _context.Facilities.AddRange(facilities);
-            await _context.SaveChangesAsync();
-
-            var techUnits = _fillerBd.AddTechUnit(count, _context.Facilities.Count());
-            _context.TechUnits.AddRange(techUnits);
-            await _context.SaveChangesAsync();
-
-            var equipmentGroups = _fillerBd.AddEquipmentGroup(count, _context.TechUnits.Count() );
-            _context.EquipmentGroups.AddRange(equipmentGroups);
-            await _context.SaveChangesAsync();
-
-            var hardwareTypes = _fillerBd.AddHardwareType(count);
-            _context.HardwareTypes.AddRange(hardwareTypes);
-            await _context.SaveChangesAsync();
-
-            var hardwares = _fillerBd.AddHardware(count, _context.EquipmentGroups.Count(), _context.HardwareTypes.Count());
-            _context.Hardwares.AddRange(hardwares);
-            await _context.SaveChangesAsync();
-
+            }
+            catch (Exception)
+            {
+                _logger.LogError("Не удалось записать тестовые данные в бд");
+                throw new InvalidOperationException();
+            }
         }
     }
 }

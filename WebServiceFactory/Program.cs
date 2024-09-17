@@ -15,7 +15,10 @@ namespace WebServiceFactory
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Настраиваем логгирование программно
+            builder.Logging.ClearProviders(); // Опционально: очищаем стандартных провайдеров
+            builder.Logging.AddConsole(); // Добавляем логирование в консоль
+            builder.Logging.AddDebug(); // Добавляем логирование в отладочный вывод
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -33,6 +36,7 @@ namespace WebServiceFactory
             //    options.UseNpgsql(a);
             //});
 
+            
 
             builder.Services.AddScoped<IDataTestRepository, DataTestRepository>();
             builder.Services.AddScoped<FillerBd>();
@@ -48,6 +52,8 @@ namespace WebServiceFactory
                 if (context.Database.GetPendingMigrations().Any())
                     context.Database.Migrate();
             }
+
+            
 
 
             // Configure the HTTP request pipeline.
