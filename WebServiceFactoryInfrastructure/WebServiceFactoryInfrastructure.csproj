@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebServiceFactoryContracts\WebServiceFactoryContracts.csproj" />
+    <ProjectReference Include="..\WebServiceFactoryModel\WebServiceFactoryModel.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,13 @@
-﻿using WebServiceFactoryInfrastructure.Entities.Base;
+﻿//using WebServiceFactoryInfrastructure.Entities.Base;
 
-namespace WebServiceFactoryInfrastructure.Entities
-{
-    public class Facility : ItemBase
-    {
-        public int RegionId { get; set; }  
+//namespace WebServiceFactoryInfrastructure.Entities
+//{
+//    public class Facility : ItemBase
+//    {
+//        public int RegionId { get; set; }  
 
-        public Region Region { get; set; }
+//        public Region Region { get; set; }
 
-        public ICollection<TechUnit> TechUnits { get; set; } 
-    }
-}
+//        public ICollection<TechUnit> TechUnits { get; set; } 
+//    }
+//}

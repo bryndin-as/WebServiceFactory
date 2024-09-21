@@ -1,11 +1,15 @@
 
 using Microsoft.EntityFrameworkCore;
 using WebServiceFactory.Extensions;
+using WebServiceFactoryContracts;
 using WebServiceFactoryContracts.Repositories;
+using WebServiceFactoryCore;
+using WebServiceFactoryInfrastructure;
 using WebServiceFactoryInfrastructure.Database;
-using WebServiceFactoryInfrastructure.Entities;
-using WebServiceFactoryInfrastructure.Repositories;
+using WebServiceFactoryInfrastructure.Repositories.FakeData;
 using WebServiceFactoryInfrastructure.Services;
+using WebServiceFactoryServices;
+using WebServiceFactoryServices.Mappings;
 
 namespace WebServiceFactory
 {
@@ -36,10 +40,12 @@ namespace WebServiceFactory
             //    options.UseNpgsql(a);
             //});
 
-            
 
+            builder.Services.AddAutoMapper(x => x.AddProfile<MappingProfile>());
             builder.Services.AddScoped<IDataTestRepository, DataTestRepository>();
             builder.Services.AddScoped<FillerBd>();
+            builder.Services.AddScoped<IUnitOfWork, EFUnitOfWork>();    
+            builder.Services.AddScoped<IDataService, DataService>();    
 
 
             var app = builder.Build();
@@ -53,7 +59,7 @@ namespace WebServiceFactory
                     context.Database.Migrate();
             }
 
-            
+
 
 
             // Configure the HTTP request pipeline.

@@ -2,7 +2,7 @@
 using WebServiceFactoryContracts.Repositories;
 using WebServiceFactoryInfrastructure.Services;
 
-namespace WebServiceFactoryInfrastructure.Repositories
+namespace WebServiceFactoryInfrastructure.Repositories.FakeData
 {
     public class DataTestRepository : IDataTestRepository
     {

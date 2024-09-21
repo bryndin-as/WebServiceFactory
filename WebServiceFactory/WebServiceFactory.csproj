@@ -20,7 +20,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebServiceFactoryContracts\WebServiceFactoryContracts.csproj" />
+    <ProjectReference Include="..\WebServiceFactoryCore\WebServiceFactoryCore.csproj" />
     <ProjectReference Include="..\WebServiceFactoryInfrastructure\WebServiceFactoryInfrastructure.csproj" />
+    <ProjectReference Include="..\WebServiceFactoryServices\WebServiceFactoryServices.csproj" />
   </ItemGroup>
 
 </Project>

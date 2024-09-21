@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebServiceFactoryContracts.Repositories;
-using WebServiceFactoryInfrastructure.Entities;
-using WebServiceFactoryInfrastructure.Repositories;
+using WebServiceFactoryCore;
+using WebServiceFactoryDto;
 
 namespace WebServiceFactory.Controllers
 {
@@ -9,18 +9,31 @@ namespace WebServiceFactory.Controllers
     [Route("[controller]")]
     public class DataTestController : ControllerBase
     {
+        private readonly IDataService _dataService;
         private readonly IDataTestRepository _dataTestRepository;
 
-        public DataTestController(IDataTestRepository dataTestRepositoryуу)
+        public DataTestController(IDataService dataService, IDataTestRepository dataTestRepository)
         {
-            _dataTestRepository = dataTestRepositoryуу;
+            _dataService = dataService;
+            _dataTestRepository = dataTestRepository;
         }
 
-        [HttpPost]
+        [HttpPost("addTestData")]
         public async Task<IActionResult> AddDataSet(int count)
         {
             await _dataTestRepository.SetDataTest(count);
             return Ok();
         }
+
+        [HttpPost("createRegion")]
+        public async Task<IActionResult> CreateRegion(RegionCreateDTO regionCreateDTO)
+        {
+            await _dataService.CreateRegionAsync(regionCreateDTO);
+            return Ok();
+        }
+
+
+
+
     }
 }

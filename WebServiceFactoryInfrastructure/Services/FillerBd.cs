@@ -1,6 +1,6 @@
 ﻿using Bogus;
 using WebServiceFactoryInfrastructure.Database;
-using WebServiceFactoryInfrastructure.Entities;
+using WebServiceFactoryModel.Entities;
 
 namespace WebServiceFactoryInfrastructure.Services
 {
@@ -29,7 +29,7 @@ namespace WebServiceFactoryInfrastructure.Services
 
         }
 
-        public async Task AddFacility(int count) 
+        public async Task AddFacility(int count)
         {
             var facilities = Enumerable.Range(0, count).Select(f => new Facility
             {
@@ -45,7 +45,7 @@ namespace WebServiceFactoryInfrastructure.Services
 
         }
 
-        public async Task AddTechUnit(int count) 
+        public async Task AddTechUnit(int count)
         {
             var techUnits = Enumerable.Range(0, count).Select(t => new TechUnit
             {
@@ -60,9 +60,9 @@ namespace WebServiceFactoryInfrastructure.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddEquipmentGroup(int count) 
+        public async Task AddEquipmentGroup(int count)
         {
-            var equipmentGroups =  Enumerable.Range(0, count).Select(t => new EquipmentGroup
+            var equipmentGroups = Enumerable.Range(0, count).Select(t => new EquipmentGroup
             {
                 Title = _faker.Commerce.ProductName().ToString(),
                 Description = _faker.Commerce.ProductDescription().ToString(),
@@ -77,7 +77,7 @@ namespace WebServiceFactoryInfrastructure.Services
 
         public async Task AddHardwareType(int count)
         {
-            var hardwareTypes =  Enumerable.Range(0, count).Select(t => new HardwareType
+            var hardwareTypes = Enumerable.Range(0, count).Select(t => new HardwareType
             {
                 Title = _faker.Commerce.ProductName().ToString(),
                 Description = _faker.Commerce.ProductDescription().ToString(),
@@ -89,7 +89,7 @@ namespace WebServiceFactoryInfrastructure.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddHardware(int count) 
+        public async Task AddHardware(int count)
         {
             var hardwares = Enumerable.Range(0, count).Select(t => new Hardware
             {
