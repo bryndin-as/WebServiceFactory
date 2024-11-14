@@ -1,9 +1,9 @@
-﻿using WebServiceFactoryInfrastructure.Entities.Base;
+﻿//using WebServiceFactoryInfrastructure.Entities.Base;
 
-namespace WebServiceFactoryInfrastructure.Entities
-{
-    public class Region : ItemBase
-    {
-        public ICollection<Facility> Facilities { get; set; } 
-    }
-}
+//namespace WebServiceFactoryInfrastructure.Entities
+//{
+//    public class Region : ItemBase
+//    {
+//        public ICollection<Facility> Facilities { get; set; } 
+//    }
+//}

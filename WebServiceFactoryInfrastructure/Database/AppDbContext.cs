@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using WebServiceFactoryInfrastructure.Entities;
+using WebServiceFactoryModel.Entities;
 
 namespace WebServiceFactoryInfrastructure.Database
 {
@@ -16,13 +15,13 @@ namespace WebServiceFactoryInfrastructure.Database
         public DbSet<Region> Regions { get; set; }
         public DbSet<Facility> Facilities { get; set; }
         public DbSet<TechUnit> TechUnits { get; set; }
-        public DbSet<EquipmentGroup> EquipmentGroups { get; set; } 
-        public DbSet<Hardware> Hardwares { get; set; }  
-        public DbSet<HardwareType> HardwareTypes { get; set; }   
+        public DbSet<EquipmentGroup> EquipmentGroups { get; set; }
+        public DbSet<Hardware> Hardwares { get; set; }
+        public DbSet<HardwareType> HardwareTypes { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            
+
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -86,7 +85,7 @@ namespace WebServiceFactoryInfrastructure.Database
         //        .HasForeignKey(h=>h.HardwareTypeId);
 
         //    });
-        
-       //}
+
+        //}
     }
 }
